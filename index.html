@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>科学探索 🔬 每周更新的科普知识平台</title>
+  <meta name="description" content="一个每周自动更新的科普知识平台，涵盖文章、视频、科学人物、历史事件和趣味知识。">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span class="logo-icon">🔬</span>
+        <span class="logo-text">科学探索</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">首页</a></li>
+        <li><a href="#articles">文章</a></li>
+        <li><a href="#videos">视频</a></li>
+        <li><a href="#scientists">人物</a></li>
+        <li><a href="#events">事件</a></li>
+        <li><a href="#funfacts">趣味</a></li>
+        <li><a href="#quiz">问答</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="searchBtn" class="nav-btn" title="搜索"><i class="fas fa-search"></i></button>
+        <button id="themeToggle" class="nav-btn" title="切换主题"><i class="fas fa-moon"></i></button>
+        <button id="menuBtn" class="nav-btn mobile-only" title="菜单"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 搜索模态框 -->
+  <div id="searchModal" class="modal">
+    <div class="modal-content search-modal">
+      <button class="modal-close" id="closeSearch">&times;</button>
+      <h2><i class="fas fa-search"></i> 搜索科普内容</h2>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="输入关键词搜索文章、视频、人物..." autocomplete="off">
+        <button id="doSearch"><i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div id="searchResults" class="search-results"></div>
+    </div>
+  </div>
+
+  <!-- 文章详情模态框 -->
+  <div id="articleModal" class="modal">
+    <div class="modal-content article-modal">
+      <button class="modal-close" id="closeArticle">&times;</button>
+      <div id="articleDetail"></div>
+    </div>
+  </div>
+
+  <!-- 英雄区域 -->
+  <section id="home" class="hero">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        第 <span id="weekNum"></span> 周 · 每周一更新
+      </div>
+      <h1 class="hero-title">
+        探索<span class="gradient-text">科学</span>的<br>无限可能
+      </h1>
+      <p class="hero-subtitle">每周为你精选最前沿的科普知识，从量子世界到浩瀚宇宙</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num" id="statArticles">8</span>
+          <span class="stat-label">科普文章</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="statVideos">6</span>
+          <span class="stat-label">科普视频</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="statScientists">8</span>
+          <span class="stat-label">科学人物</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="statFacts">24</span>
+          <span class="stat-label">趣味知识</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#featured" class="btn btn-primary"><i class="fas fa-rocket"></i> 开始探索</a>
+        <a href="#quiz" class="btn btn-outline"><i class="fas fa-brain"></i> 挑战问答</a>
+      </div>
+      <div class="countdown-bar">
+        <i class="fas fa-clock"></i>
+        距离下次更新还有：<span id="countdown"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 本周精选 -->
+  <section id="featured" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🔥 本周推荐</span>
+        <h2 class="section-title">本周精选内容</h2>
+        <p class="section-desc">每周自动更新，为你挑选最值得关注的科普内容</p>
+      </div>
+      <div id="featuredContent" class="featured-grid"></div>
+    </div>
+  </section>
+
+  <!-- 科普文章 -->
+  <section id="articles" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">📖知识宝库</span>
+        <h2 class="section-title">科普文章</h2>
+        <p class="section-desc">深入了解科学的各个方面</p>
+      </div>
+      <div class="filter-tabs" id="articleFilters">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="量子物理">量子物理</button>
+        <button class="filter-btn" data-filter="天文宇宙">天文宇宙</button>
+        <button class="filter-btn" data-filter="生命科学">生命科学</button>
+        <button class="filter-btn" data-filter="信息科技">信息科技</button>
+        <button class="filter-btn" data-filter="能源科学">能源科学</button>
+        <button class="filter-btn" data-filter="地球科学">地球科学</button>
+      </div>
+      <div id="articlesGrid" class="articles-grid"></div>
+    </div>
+  </section>
+
+  <!-- 科普视频 -->
+  <section id="videos" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🎬 视觉盛宴</span>
+        <h2 class="section-title">科普视频</h2>
+        <p class="section-desc">用最直观的方式理解科学</p>
+      </div>
+      <div id="videosGrid" class="videos-grid"></div>
+    </div>
+  </section>
+
+  <!-- 科学人物 -->
+  <section id="scientists" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">👤 巨人肩膀</span>
+        <h2 class="section-title">科学人物</h2>
+        <p class="section-desc">致敬那些改变世界的科学先驱</p>
+      </div>
+      <div id="scientistsGrid" class="scientists-grid"></div>
+    </div>
+  </section>
+
+  <!-- 科学事件 -->
+  <section id="events" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">📅 历史时刻</span>
+        <h2 class="section-title">科学大事件</h2>
+        <p class="section-desc">改变人类命运的科学里程碑</p>
+      </div>
+      <div id="timeline" class="timeline"></div>
+    </div>
+  </section>
+
+  <!-- 趣味知识 -->
+  <section id="funfacts" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💡 冷知识</span>
+        <h2 class="section-title">趣味科学</h2>
+        <p class="section-desc">刷新你对世界的认知</p>
+      </div>
+      <div id="factsGrid" class="facts-grid"></div>
+      <div style="text-align:center;margin-top:2rem;">
+        <button id="refreshFacts" class="btn btn-primary"><i class="fas fa-sync-alt"></i> 换一批</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 互动问答 -->
+  <section id="quiz" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🧠 脑力挑战</span>
+        <h2 class="section-title">科普问答</h2>
+        <p class="section-desc">测试你的科学知识水平</p>
+      </div>
+      <div id="quizContainer" class="quiz-container">
+        <div id="quizStart" class="quiz-start">
+          <div class="quiz-icon">🧩</div>
+          <h3>准备好挑战了吗？</h3>
+          <p>共5道科学知识题目，测试一下你的科学素养</p>
+          <button id="startQuiz" class="btn btn-primary btn-lg"><i class="fas fa-play"></i> 开始答题</button>
+        </div>
+        <div id="quizQuestions" style="display:none"></div>
+        <div id="quizResult" style="display:none"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 评论区 -->
+  <section id="comments" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💬 交流区</span>
+        <h2 class="section-title">读者评论</h2>
+        <p class="section-desc">分享你的想法和科学见解</p>
+      </div>
+      <div class="comment-form" id="commentForm">
+        <div class="form-row">
+          <input type="text" id="commentName" placeholder="你的昵称" maxlength="20">
+        </div>
+        <div class="form-row">
+          <textarea id="commentText" placeholder="写下你的评论..." rows="3" maxlength="500"></textarea>
+        </div>
+        <button id="submitComment" class="btn btn-primary"><i class="fas fa-paper-plane"></i> 发表评论</button>
+      </div>
+      <div id="commentsList" class="comments-list"></div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <span class="logo-icon">🔬</span>
+            <span>科学探索</span>
+          </div>
+          <p>致力于传播科学知识，让每个人都能享受探索的乐趣。</p>
+        </div>
+        <div class="footer-col">
+          <h4>快速导航</h4>
+          <ul>
+            <li><a href="#articles">科普文章</a></li>
+            <li><a href="#videos">科普视频</a></li>
+            <li><a href="#scientists">科学人物</a></li>
+            <li><a href="#events">科学事件</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>互动参与</h4>
+          <ul>
+            <li><a href="#funfacts">趣味知识</a></li>
+            <li><a href="#quiz">科普问答</a></li>
+            <li><a href="#comments">读者评论</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>关于我们</h4>
+          <p>一个每周自动更新的科普知识平台，由AI驱动，内容经过精心策划。</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 科学探索 · 每周自动更新 · 让科学触手可及</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部 -->
+  <button id="backToTop" class="back-to-top" title="回到顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
